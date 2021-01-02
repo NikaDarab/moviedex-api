@@ -5,6 +5,7 @@ const express = require("express");
 const morgan = require("morgan");
 const MOVIEDEX = require("./moviedex.json");
 const app = express();
+
 app.use(morgan("dev"));
 
 app.use(function validateBearer(req, res, next) {
@@ -17,8 +18,14 @@ app.use(function validateBearer(req, res, next) {
   next();
 });
 
-console.log(`API_TOKEN is ${process.env.API_TOKEN}`);
-
+app.get("/genre", function handleGetGenres(req, res) {
+  let genres = [];
+  MOVIEDEX.forEach((movie) => genres.push(movie.genre));
+  genres = genres.filter((genre, index) => {
+    return genres.indexOf(genre) === index;
+  });
+  res.send(genres);
+});
 app.get("/movie", function handleGetMovie(req, res) {
   let response = MOVIEDEX["movie_title"];
   if (req.query.genre) {
