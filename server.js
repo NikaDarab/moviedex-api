@@ -26,22 +26,21 @@ app.get("/genre", function handleGetGenres(req, res) {
   });
   res.send(genres);
 });
+
 app.get("/movie", function handleGetMovie(req, res) {
-  let response = MOVIEDEX["movie_title"];
+  let response = MOVIEDEX;
   if (req.query.genre) {
     response = response.filter((movie) =>
-      movie.genre.includes(req.query.genre)
+      movie.genre.toLowerCase().includes(req.query.genre.toLowerCase())
     );
   }
   if (req.query.country) {
     response = response.filter((movie) =>
-      movie.genre.includes(req.query.country)
+      movie.country.toLowerCase().includes(req.query.country.toLowerCase())
     );
   }
-  if (req.query["avg_vote"]) {
-    response = response.filter((movie) =>
-      movie["avg_vote"].includes(req.query.vote)
-    );
+  if (req.query.vote) {
+    response = response.filter((movie) => movie["avg_vote"] >= req.query.vote);
   }
   res.json(response);
 });
