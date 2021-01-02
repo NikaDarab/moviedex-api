@@ -43,8 +43,10 @@ app.get("/movie", function handleGetMovie(req, res) {
       movie.country.toLowerCase().includes(req.query.country.toLowerCase())
     );
   }
-  if (req.query.vote) {
-    response = response.filter((movie) => movie["avg_vote"] >= req.query.vote);
+  if (req.query.avg_vote) {
+    response = response.filter(
+      (movie) => movie["avg_vote"] >= req.query.avg_vote
+    );
   }
   res.json(response);
 });
