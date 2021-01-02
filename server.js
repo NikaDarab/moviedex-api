@@ -25,11 +25,16 @@ const handleGetGenres = (req, res) => {
 };
 
 const handleGetCountry = (req, res) => {
-  res.send("welcome to the country!");
+  res.send("the list of the movies based on the country");
+};
+
+const handleAverageVote = (req, res) => {
+  res.send("the list of the movies based on the average vote");
 };
 
 app.get("/genre", handleGetGenres);
 app.get("/country", handleGetCountry);
+app.get("/vote"), handleAverageVote;
 
 const PORT = 8000;
 app.listen(PORT, () => {
